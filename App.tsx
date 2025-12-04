@@ -91,7 +91,7 @@ function App() {
 
     // Step 2: Drafting (Deep Thinking)
     setStage('drafting');
-    setLoadingText("AI is thinking deeply (Budget: 32k tokens)...");
+    setLoadingText("AI is analyzing and drafting your post...");
     
     try {
       const draft = await geminiService.draftPost(topic, chatHistory, rData);
@@ -220,7 +220,7 @@ function App() {
             <p className="font-retro text-lg mb-2 dark:text-white">{message}</p>
             <ProgressBar progress={stage === 'researching' ? 45 : 80} />
             <p className="text-xs font-mono mt-2 text-gray-500 dark:text-gray-400">
-                {stage === 'drafting' ? 'Thinking Model Active (Budget: 32768 tokens)...' : 'Searching Knowledge Base...'}
+                {stage === 'drafting' ? 'AI Model Processing...' : 'Searching Knowledge Base...'}
             </p>
          </div>
       </div>

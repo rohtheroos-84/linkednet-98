@@ -1,7 +1,14 @@
-import { GoogleGenAI, ChatSession } from "@google/genai";
+import { GoogleGenAI } from "@google/genai";
 import { Message, ResearchResult } from "../types";
 
 const apiKey = process.env.API_KEY || '';
+
+// Debug: Log API key status
+console.log('API Key loaded:', apiKey ? `${apiKey.substring(0, 10)}...` : 'MISSING');
+
+if (!apiKey) {
+  console.error('GEMINI_API_KEY is not set in environment variables!');
+}
 
 const ai = new GoogleGenAI({ apiKey });
 
@@ -29,12 +36,14 @@ Your style is:
 `;
 
 export class GeminiService {
-  private chatSession: ChatSession | null = null;
+  private chatSession: any = null;
 
   async startInterview(topic: string): Promise<string> {
     try {
+      console.log('Attempting to start interview with model: gemini-2.5-flash');
+      
       this.chatSession = ai.chats.create({
-        model: 'gemini-3-pro-preview',
+        model: 'gemini-2.5-flash',
         config: {
           systemInstruction: INTERVIEWER_SYSTEM_INSTRUCTION,
         },
@@ -47,7 +56,8 @@ export class GeminiService {
       return response.text || "Could not start interview.";
     } catch (error) {
       console.error("Error starting interview:", error);
-      return "Error initializing the AI. Please check your connection.";
+      console.error("Error details:", JSON.stringify(error, null, 2));
+      return `Error initializing the AI: ${error.message || error}`;
     }
   }
 
@@ -69,7 +79,7 @@ export class GeminiService {
 
   async performResearch(topic: string): Promise<ResearchResult> {
     try {
-      // Use Flash for speed and search tool
+      // Use gemini-2.5-flash for research
       const response = await ai.models.generateContent({
         model: 'gemini-2.5-flash',
         contents: `Find recent trends, news, or best practices related to: "${topic}" that would make a LinkedIn post timely and relevant. Summarize key insights.`,
@@ -127,15 +137,12 @@ export class GeminiService {
         5. STRICTLY NO generic AI phrases.
       `;
 
-      // Use Thinking Mode for the complex task of synthesis and creative writing
+      // Use gemini-2.5-flash for drafting
       const response = await ai.models.generateContent({
-        model: 'gemini-3-pro-preview',
+        model: 'gemini-2.5-flash',
         contents: prompt,
         config: {
           systemInstruction: DRAFTER_SYSTEM_INSTRUCTION,
-          thinkingConfig: {
-            thinkingBudget: 32768, 
-          }
         }
       });
 
