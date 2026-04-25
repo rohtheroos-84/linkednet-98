@@ -2,11 +2,56 @@ import React, { useState, useEffect, useRef } from 'react';
 import { RetroWindow, RetroButton, RetroInput, RetroTextArea, RetroCard, ProgressBar } from './components/RetroComponents';
 import { geminiService } from './services/geminiService';
 import { Message, ResearchResult, AppStage } from './types';
+import { Globe, Mail } from 'lucide-react';
+
+type IconProps = {
+  size?: number;
+  className?: string;
+};
+
+const Linkedin: React.FC<IconProps> = ({ size = 16, className }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    aria-hidden="true"
+  >
+    <path
+      d="M7.5 8.5H4.5V19.5H7.5V8.5ZM6 4.5C5.03 4.5 4.25 5.28 4.25 6.25C4.25 7.22 5.03 8 6 8C6.97 8 7.75 7.22 7.75 6.25C7.75 5.28 6.97 4.5 6 4.5ZM19.5 13.28V19.5H16.5V13.75C16.5 12.25 16.47 10.31 14.4 10.31C12.3 10.31 12 11.95 12 13.64V19.5H9V8.5H11.88V10H11.92C12.32 9.25 13.3 8.44 14.8 8.44C17.92 8.44 19.5 10.4 19.5 13.28Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+const LIVE_SITE_URL = 'https://linkednet-98.netlify.app';
+const REPOSITORY_URL = 'https://github.com/rohtheroos-84/linkednet-98';
+
+const FOUNDER_LINKS: ReadonlyArray<{ label: string; href: string; Icon: React.FC<IconProps> }> = [
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/rohitnagendran84/',
+    Icon: Linkedin,
+  },
+  {
+    label: 'Portfolio',
+    href: 'https://rohit-builds.netlify.app',
+    Icon: Globe as React.FC<IconProps>,
+  },
+  {
+    label: 'Email',
+    href: 'mailto:rohit84.official@gmail.com',
+    Icon: Mail as React.FC<IconProps>,
+  },
+];
 
 function App() {
   // State
   const [darkMode, setDarkMode] = useState(false);
   const [stage, setStage] = useState<AppStage>('intro');
+  const [aboutReturnStage, setAboutReturnStage] = useState<AppStage>('intro');
   const [topic, setTopic] = useState('');
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
   const [currentInput, setCurrentInput] = useState('');
@@ -110,6 +155,16 @@ function App() {
     alert("Copied to clipboard!");
   };
 
+  const openAbout = () => {
+    if (stage === 'about') return;
+    setAboutReturnStage(stage);
+    setStage('about');
+  };
+
+  const closeAbout = () => {
+    setStage(aboutReturnStage === 'about' ? 'intro' : aboutReturnStage);
+  };
+
   // --- Render Helpers ---
 
   const renderIntro = () => (
@@ -131,12 +186,87 @@ function App() {
             className="w-full h-32 mb-4 text-lg"
             disabled={isLoading}
           />
-          <div className="flex justify-end">
+          <div className="flex flex-wrap justify-between gap-2">
+             <RetroButton onClick={openAbout} disabled={isLoading}>
+               About This Project
+             </RetroButton>
              <RetroButton onClick={handleStart} disabled={isLoading || !topic}>
                {isLoading ? "Loading..." : "Start Wizard >"}
              </RetroButton>
           </div>
         </div>
+      </div>
+    </div>
+  );
+
+  const renderAbout = () => (
+    <div className="h-full overflow-y-auto scrollbar-retro pr-1">
+      <div className="grid gap-3">
+        <RetroCard>
+          <h2 className="font-pixel text-2xl text-retro-blue dark:text-retro-green">About LinkedNet 98</h2>
+          <p className="font-retro mt-2 text-sm sm:text-base dark:text-white">
+            LinkedNet 98 is a Windows 98-inspired AI writing assistant that interviews you first,
+            then drafts a specific and human-sounding LinkedIn post from your real experiences.
+          </p>
+        </RetroCard>
+
+        <RetroCard>
+          <h3 className="font-retro font-bold text-lg dark:text-retro-green">How It Works</h3>
+          <ol className="font-retro mt-2 text-sm sm:text-base list-decimal list-inside space-y-1 dark:text-white">
+            <li>Intro: You enter a topic, achievement, or insight.</li>
+            <li>Interview: The AI asks one focused question at a time for detail and nuance.</li>
+            <li>Research: The app gathers current context with Google Search grounding.</li>
+            <li>Drafting: Gemini turns interview + research into a polished post.</li>
+            <li>Review: You edit and copy the final version.</li>
+          </ol>
+        </RetroCard>
+
+        <RetroCard>
+          <h3 className="font-retro font-bold text-lg dark:text-retro-green">Creator</h3>
+          <p className="font-retro mt-2 text-sm sm:text-base dark:text-white">
+            Built by Rohit Nagendran. This project blends nostalgic interface design with a practical
+            interview-first content workflow for modern LinkedIn writing.
+          </p>
+
+          <div className="flex flex-wrap gap-2 mt-3">
+            {FOUNDER_LINKS.map(({ label, href, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith('mailto:') ? undefined : '_blank'}
+                rel={href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+                className="inline-flex items-center gap-2 font-retro bg-retro-gray text-black border border-t-white border-l-white border-b-black border-r-black px-3 py-1 active:translate-y-px active:translate-x-px dark:bg-black dark:text-retro-green dark:border-retro-green dark:border-2"
+              >
+                <Icon size={16} />
+                <span>{label}</span>
+              </a>
+            ))}
+          </div>
+        </RetroCard>
+
+        <RetroCard>
+          <h3 className="font-retro font-bold text-lg dark:text-retro-green">Project Links</h3>
+          <div className="font-retro mt-2 text-sm sm:text-base space-y-1 dark:text-white">
+            <p>
+              Live app:{' '}
+              <a href={LIVE_SITE_URL} target="_blank" rel="noopener noreferrer" className="text-retro-blue underline dark:text-blue-300">
+                {LIVE_SITE_URL}
+              </a>
+            </p>
+            <p>
+              Repository:{' '}
+              <a href={REPOSITORY_URL} target="_blank" rel="noopener noreferrer" className="text-retro-blue underline dark:text-blue-300">
+                {REPOSITORY_URL}
+              </a>
+            </p>
+          </div>
+        </RetroCard>
+      </div>
+
+      <div className="flex justify-end mt-4">
+        <RetroButton onClick={closeAbout}>
+          &lt; Back
+        </RetroButton>
       </div>
     </div>
   );
@@ -264,6 +394,18 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#008080] dark:bg-[#111] p-2 sm:p-4 md:p-8 flex items-center justify-center font-retro transition-colors duration-200">
+
+      <div className="fixed top-4 left-4 z-50">
+        {stage === 'about' ? (
+          <RetroButton onClick={closeAbout} className="text-xs" disabled={isLoading}>
+            &lt; Back
+          </RetroButton>
+        ) : (
+          <RetroButton onClick={openAbout} className="text-xs" disabled={isLoading}>
+            About
+          </RetroButton>
+        )}
+      </div>
       
       {/* Theme Toggle */}
       <div className="fixed top-4 right-4 z-50">
@@ -275,12 +417,14 @@ function App() {
       <RetroWindow 
         title={
            stage === 'intro' ? "Welcome to LinkedNet" : 
+           stage === 'about' ? "About LinkedNet 98" :
            stage === 'interview' ? "Interview Session" :
            stage === 'review' ? "Post Editor" : "Processing..."
         } 
         className="w-full max-w-4xl h-[85vh] sm:h-[800px]"
       >
         {stage === 'intro' && renderIntro()}
+        {stage === 'about' && renderAbout()}
         {stage === 'interview' && renderInterview()}
         {(stage === 'researching' || stage === 'drafting') && renderLoading(loadingText)}
         {stage === 'review' && renderReview()}
