@@ -237,7 +237,7 @@ Contributions are welcome! Areas for improvement:
 
 ## 👨‍💻 Creator
 
-Built by **Rohit Nagendran**.
+Built by **Rohit Nagendra Prasad**.
 
 - LinkedIn: https://www.linkedin.com/in/rohitnagendran84/
 - Portfolio: https://rohit-builds.netlify.app
