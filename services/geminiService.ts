@@ -57,7 +57,8 @@ export class GeminiService {
     } catch (error) {
       console.error("Error starting interview:", error);
       console.error("Error details:", JSON.stringify(error, null, 2));
-      return `Error initializing the AI: ${error.message || error}`;
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      return `Error initializing the AI: ${errorMessage}`;
     }
   }
 
