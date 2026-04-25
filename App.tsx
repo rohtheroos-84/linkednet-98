@@ -224,7 +224,7 @@ function App() {
         <RetroCard>
           <h3 className="font-retro font-bold text-lg dark:text-retro-green">Creator</h3>
           <p className="font-retro mt-2 text-sm sm:text-base dark:text-white">
-            Built by Rohit Nagendran. This project blends nostalgic interface design with a practical
+            Built by Rohit Nagendra Prasad. This project blends nostalgic interface design with a practical
             interview-first content workflow for modern LinkedIn writing.
           </p>
 
