@@ -10,7 +10,7 @@ export interface ResearchResult {
   urls: string[];
 }
 
-export type AppStage = 'intro' | 'interview' | 'researching' | 'drafting' | 'review';
+export type AppStage = 'intro' | 'about' | 'interview' | 'researching' | 'drafting' | 'review';
 
 export interface AppState {
   stage: AppStage;

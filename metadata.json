@@ -1,4 +1,12 @@
 {
   "name": "LinkedNet 98",
-  "description": "A 90s-themed AI assistant that helps you craft authentic, engaging LinkedIn posts by interviewing you to gather the right details."
+  "description": "A 90s-themed AI assistant that helps you craft authentic, engaging LinkedIn posts by interviewing you to gather the right details.",
+  "liveUrl": "https://linkednet-98.netlify.app",
+  "repository": "https://github.com/rohtheroos-84/linkednet-98",
+  "creator": {
+    "name": "Rohit Nagendran",
+    "linkedin": "https://www.linkedin.com/in/rohitnagendran84/",
+    "portfolio": "https://rohit-builds.netlify.app",
+    "email": "mailto:rohit84.official@gmail.com"
+  }
 }
