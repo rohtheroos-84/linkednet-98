@@ -5,6 +5,12 @@
   <p>Powered by Google's Gemini AI with deep thinking and web search capabilities</p>
 </div>
 
+<p align="center">
+   <a href="https://linkednet-98.netlify.app"><strong>Live Demo</strong></a>
+   ·
+   <a href="https://github.com/rohtheroos-84/linkednet-98"><strong>Repository</strong></a>
+</p>
+
 ---
 
 ## 🎯 What is LinkedNet 98?
@@ -16,9 +22,17 @@ LinkedNet 98 is a nostalgic Windows 98-inspired web application that revolutioni
 - **🎤 AI-Powered Interview**: An expert investigative journalist persona asks probing questions to extract specific details, metrics, emotions, and insights
 - **🌐 Real-Time Research**: Leverages Google Search integration to ground your posts in current trends and relevant context
 - **🧠 Deep Thinking Mode**: Uses Gemini's thinking model with 32k token budget for sophisticated content synthesis
+- **👤 About Page**: Includes an in-app guide to the workflow, architecture, and creator contact links
 - **🎨 Retro UI/UX**: Beautiful Windows 98 aesthetic with dark/light mode support
 - **✏️ Editable Drafts**: Review and refine generated content before publishing
 - **📋 One-Click Copy**: Instantly copy your polished post to clipboard
+
+---
+
+## 🌍 Live Deployment
+
+- **Netlify URL**: https://linkednet-98.netlify.app
+- **Repository**: https://github.com/rohtheroos-84/linkednet-98
 
 ---
 
@@ -46,7 +60,7 @@ LinkedNet 98 is a nostalgic Windows 98-inspired web application that revolutioni
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/rohtheroos-84/linkednet-98.git
    cd linkednet-98
    ```
 
@@ -99,7 +113,7 @@ LinkedNet 98 is a nostalgic Windows 98-inspired web application that revolutioni
 
 ```
 App.tsx
-├─ Stage Management (intro → interview → researching → drafting → review)
+├─ Stage Management (intro → about → interview → researching → drafting → review)
 ├─ State Management (React hooks)
 └─ UI Rendering (retro components)
 
@@ -168,6 +182,8 @@ Unlike typical AI writing tools, LinkedNet 98:
 
 The Vite config aliases this to both `process.env.API_KEY` and `process.env.GEMINI_API_KEY` for compatibility.
 
+> ⚠️ Deployment note: in the current frontend-only setup, the API key is injected at build time. For production-grade security, move Gemini calls to a serverless function and keep the key server-side only.
+
 ---
 
 ## 📁 Project Structure
@@ -216,6 +232,16 @@ Contributions are welcome! Areas for improvement:
 - Export formats (PDF, Markdown, etc.)
 - Post scheduling integrations
 - Analytics and engagement tracking
+
+---
+
+## 👨‍💻 Creator
+
+Built by **Rohit Nagendran**.
+
+- LinkedIn: https://www.linkedin.com/in/rohitnagendran84/
+- Portfolio: https://rohit-builds.netlify.app
+- Email: rohit84.official@gmail.com
 
 ---
 
